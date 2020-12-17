@@ -1,0 +1,157 @@
+import com.cmk.buildsrc.*
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    compileSdkVersion BuildConfig.compileSdkVersion
+
+    defaultConfig {
+        applicationId "com.cmk.poke"
+        minSdkVersion BuildConfig.minSdkVersion
+        targetSdkVersion BuildConfig.targetSdkVersion
+        versionCode BuildConfig.versionCode
+        versionName BuildConfig.versionName
+        vectorDrawables.useSupportLibrary = true
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation" : "$projectDir/schemas".toString()]
+            }
+        }
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments["dagger.hilt.disableModulesHaveInstallInCheck"] = "true"
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        dataBinding true
+    }
+    lintOptions {
+        abortOnError false
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+        exclude("META-INF/*.kotlin_module")
+    }
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        kotlinOptions.freeCompilerArgs += ["-Xopt-in=kotlin.time.ExperimentalTime"]
+        kotlinOptions.freeCompilerArgs += ["-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"]
+    }
+}
+
+dependencies {
+
+    // android supports
+    implementation "com.google.android.material:material:$Versions.materialVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$Versions.constraintVersion"
+
+    // architecture components
+    implementation "androidx.fragment:fragment-ktx:$Versions.fragmentVersion"
+    implementation "androidx.lifecycle:lifecycle-extensions:$Versions.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$Versions.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$Versions.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$Versions.lifecycleVersion"
+    implementation "androidx.room:room-runtime:$Versions.roomVersion"
+    implementation "androidx.room:room-ktx:$Versions.roomVersion"
+    kapt "androidx.room:room-compiler:$Versions.roomVersion"
+
+    // startup
+    implementation "androidx.startup:startup-runtime:$Versions.startupVersion"
+
+    // hilt
+    implementation "com.google.dagger:hilt-android:$Versions.hiltCoreVersion"
+    implementation "androidx.hilt:hilt-common:$Versions.hiltVersion"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$Versions.hiltVersion"
+    compileOnly "com.squareup.inject:assisted-inject-annotations-dagger2:$Versions.assistedInjectVersion"
+    kapt "com.squareup.inject:assisted-inject-processor-dagger2:$Versions.assistedInjectVersion"
+    kapt "com.google.dagger:hilt-compiler:$Versions.hiltCoreVersion"
+    kapt "androidx.hilt:hilt-compiler:$Versions.hiltVersion"
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$Versions.hiltCoreVersion"
+    kaptAndroidTest "com.google.dagger:hilt-compiler:$Versions.hiltCoreVersion"
+
+    // network
+    implementation "com.github.skydoves:sandwich:$Versions.sandwichVersion"
+    implementation "com.squareup.retrofit2:retrofit:$Versions.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-moshi:$Versions.retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$Versions.okhttpVersion"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$Versions.okhttpVersion"
+
+    // moshi
+    implementation "com.squareup.moshi:moshi-kotlin:$Versions.moshiVersion"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$Versions.moshiVersion"
+
+    // coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$Versions.coroutinesVersion"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$Versions.coroutinesVersion"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$Versions.coroutinesVersion"
+
+    // whatIf
+    implementation "com.github.skydoves:whatif:$Versions.whatIfVersion"
+
+    // glide
+    implementation "com.github.bumptech.glide:glide:$Versions.glideVersion"
+    implementation "com.github.florent37:glidepalette:$Versions.glidePaletteVersion"
+    kapt "com.github.bumptech.glide:compiler:$Versions.glideVersion"
+
+    // bundler
+    implementation "com.github.skydoves:bundler:$Versions.bundlerVersion"
+
+    // transformation
+    implementation "com.github.skydoves:transformationlayout:$Versions.transformationLayout"
+
+    // recyclerView
+    implementation "androidx.recyclerview:recyclerview:$Versions.recyclerView"
+    implementation "com.github.skydoves:baserecyclerviewadapter:$Versions.baseAdapter"
+
+    // gradation
+    implementation "com.github.skydoves:rainbow:$Versions.rainbowVersion"
+
+    // custom views
+    implementation "com.github.skydoves:androidribbon:$Versions.androidRibbonVersion"
+    implementation "com.github.skydoves:progressview:$Versions.progressViewVersion"
+
+    // debugging
+    implementation "com.jakewharton.timber:timber:$Versions.timberVersion"
+
+    // unit test
+    testImplementation "junit:junit:$Versions.junitVersion"
+    testImplementation "androidx.test:core:$Versions.androidxTest"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$Versions.mockitoKotlinVersion"
+    testImplementation "org.mockito:mockito-inline:$Versions.mockitoInlineVersion"
+    testImplementation "app.cash.turbine:turbine:$Versions.turbineVersion"
+    testImplementation "org.robolectric:robolectric:$Versions.robolectricVersion"
+    androidTestImplementation "com.google.truth:truth:$Versions.truthVersion"
+    androidTestImplementation "androidx.test.ext:junit:$Versions.androidxTestJunit"
+    androidTestImplementation "com.android.support.test:runner:$Versions.androidTestRunner"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$Versions.espressoVersion"
+}

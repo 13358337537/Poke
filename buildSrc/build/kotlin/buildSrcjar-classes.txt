@@ -1,0 +1,1 @@
+D:\AndroidProject\text\poke\buildSrc\build\classes\kotlin\main\com\cmk\buildsrc\BuildConfig.class;D:\AndroidProject\text\poke\buildSrc\build\classes\kotlin\main\com\cmk\buildsrc\Dependencies.class;D:\AndroidProject\text\poke\buildSrc\build\classes\kotlin\main\com\cmk\buildsrc\Versions.class
