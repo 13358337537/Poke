@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.cmk.poke">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".PokeApp"
         android:allowBackup="false"
@@ -10,10 +12,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Poke"
+        android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".ui.main.MainActivity"
-             android:launchMode="singleTop">
+        <activity android:name=".ui.details.DetailActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,7 +31,6 @@
             android:authorities="com.cmk.poke.androidx-startup"
             android:exported="false"
             tools:node="merge">
-
             <meta-data
                 android:name="com.cmk.poke.initializer.TimberInitializer"
                 android:value="androidx.startup" />

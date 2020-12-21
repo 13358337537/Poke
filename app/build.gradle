@@ -83,6 +83,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$Versions.lifecycleVersion"
     implementation "androidx.room:room-runtime:$Versions.roomVersion"
     implementation "androidx.room:room-ktx:$Versions.roomVersion"
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     kapt "androidx.room:room-compiler:$Versions.roomVersion"
 
     // startup
